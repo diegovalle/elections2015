@@ -1,5 +1,5 @@
 
-dip2009 <- read_delim("data/03090433.txt", delim = ";",
+dip2009 <- read_delim("data/2009-03090433.txt", delim = ";",
                       col_names = c("CIRCUNSCRIPCION" ,"CLAVE ENTIDAD" ,"ENTIDAD FEDERATIVA" ,"DISTRITO" ,"CABECERA DISTRITAL" ,"SECCIONES" ,"CASILLAS" ,"PAN" ,"PRI" ,"PRD" ,"PVEM" ,"PT" ,"CONVERGENCIA" ,"NUEVA_ALIANZA" ,"PSD" ,"PRIMERO_MEXICO" ,"SALVEMOS_MEXICO" ,"NO_REG" ,"NULOS" ,"TOTAL_VOTOS" ,"LISTA_NOMINAL" ,"OBSERVACIONES", "null"),
                       skip = 1)
 
