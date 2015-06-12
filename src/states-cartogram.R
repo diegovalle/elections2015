@@ -72,7 +72,7 @@ MPRD <- dip %>%
   rename(state_code = ESTADO)
 mapStates(map, MPRD, centers, "MPRD", low = "#d8b365", high = "#5ab4ac", 
           title = "MORENA votes - PRD votes") +
-  scale_fill_gradient2(high = "#991b06", low = "#f7cf00", midpoint = 0, mid = "#f5f5f5",
+  scale_fill_gradient2("percent", high = "#991b06", low = "#f7cf00", midpoint = 0, mid = "#f5f5f5",
                        labels = percent) 
 ggsave(str_c("graphs/", "morenavsprd-estados", ".png"), width = 8, height = 5, dpi = 100)
 
