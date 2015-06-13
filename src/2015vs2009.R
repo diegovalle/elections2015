@@ -23,7 +23,7 @@ cartogramDiffMap <- function(dip2009, districts, var, title) {
     theme_bw() +
     ggtitle(title) +
     #scale_fill_distiller("diferencia\nen % de votos", palette = "RdYlBu", labels = percent) +
-    scale_fill_gradient2("diferencia\nen % de votos", low = "#d73027", high = "#4575b4", midpoint = 0, mid = "#ffffbf",
+    scale_fill_gradient2("difference\nin vote %", low = "#d73027", high = "#4575b4", midpoint = 0, mid = "#ffffbf",
                          labels = percent) +
     theme(panel.border=element_blank()) +
     theme(panel.grid=element_blank()) +

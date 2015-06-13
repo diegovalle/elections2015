@@ -27,16 +27,16 @@ mapStates <- function(map, estados, centers, party, low = "gray90", high, title 
 }
 
 
-mapStates(map, estados, centers, "PRI", high = "#ec242a", 
+mapStates(map, estados, centers, "PRI_T", high = "#ec242a", 
           title = "PRI votes, by state") %>%
   savePlot("PRI-estados")
-mapStates(map, estados, centers, "PVEM", high = "#2ca25f", 
+mapStates(map, estados, centers, "PVEM_T", high = "#2ca25f", 
           title = "PVEM votes, by state")%>%
   savePlot("PVEM-estados")
 mapStates(map, estados, centers, "PAN", high = "#02569b", 
           title = "PAN votes, by state")%>%
   savePlot("PAN-estados")
-mapStates(map, estados, centers, "PRD", high = "#fec44f", 
+mapStates(map, estados, centers, "PRD_T", high = "#fec44f", 
           title = "PRD votes, by state")%>%
   savePlot("PRD-estados")
 mapStates(map, estados, centers, "MORENA", high = "#d95f0e", 
@@ -49,7 +49,7 @@ mapStates(map, estados, centers, "MOVIMIENTO_CIUDADANO", high = "#f58e1e",
 mapStates(map, estados, centers, "NUEVA_ALIANZA", high = "#37b4b7", 
           title = "PANALvotes, by state")%>%
   savePlot("PANAL-estados")
-mapStates(map, estados, centers, "PT", high = "#e8122e", 
+mapStates(map, estados, centers, "PT_T", high = "#e8122e", 
           title = "PT votes, by state")%>%
   savePlot("PRI-estados")
 mapStates(map, estados, centers, "PH", high = "#a7448b", 
@@ -58,6 +58,12 @@ mapStates(map, estados, centers, "PH", high = "#a7448b",
 mapStates(map, estados, centers, "PS", high = "#643179", 
           title = "Encuentro Social votes, by state")%>%
   savePlot("ES-estados")
+mapStates(map, estados, centers, "C_PRI_PVEM_T", high = "#ec242a", 
+          title = "PRI + PVEM votes, by state")%>%
+  savePlot("PRIPVEM-estados")
+mapStates(map, estados, centers, "C_PRD_PT_T", high = "#fec44f", 
+          title = "PRD + PT votes, by state")%>%
+  savePlot("PRDPT-estados")
 #mapStates(map, NULO, high = "#ffffff", title = "Porcentaje de Voto NULO (PREP), por Estado")
 
 

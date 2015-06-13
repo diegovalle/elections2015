@@ -20,16 +20,16 @@ cartogramMap <- function(districts, var, title, low = "gray92", high) {
   #ggsave(str_c("graphs/", title, ".png"), width = 9, height = 7, dpi = 100)
 }
 
-cartogramMap(districts, "PRI", high = "#ec242a", 
+cartogramMap(districts, "PRI_T", high = "#ec242a", 
              title = "PRI vote equal area cartogram, by district") %>%
   savePlot("PRI-cartograma")
-cartogramMap(districts, "PVEM", high = "#2ca25f", 
+cartogramMap(districts, "PVEM_T", high = "#2ca25f", 
              title = "PVEM vote equal area cartogram, by district")%>%
   savePlot("PVEM-cartograma")
 cartogramMap(districts,  "PAN", high = "#02569b", 
              title = "PAN vote equal area cartogram, by district")%>%
   savePlot("PAN-cartograma")
-cartogramMap(districts, "PRD", high = "#fec44f", 
+cartogramMap(districts, "PRD_T", high = "#fec44f", 
              title = "PRD vote equal area cartogram, by district")%>%
   savePlot("PRD-cartograma")
 cartogramMap(districts,  "MORENA", high = "#d95f0e", 
@@ -52,3 +52,10 @@ cartogramMap(districts,  "PS", high = "#643179",
              title = "Encuentro Social vote equal area cartogram, by district")%>%
   savePlot("ES-cartograma")
 
+cartogramMap(districts,  "C_PRI_PVEM_T", high = "#ec242a", 
+             title = "PRI and PVEM vote equal area cartogram, by district")%>%
+  savePlot("PRIPVEM-cartograma")
+
+cartogramMap(districts,  "C_PRD_PT_T", high = "#fec44f", 
+             title = "PRD and PT vote equal area cartogram, by district")%>%
+  savePlot("PRDPT-cartograma")
