@@ -1,0 +1,156 @@
+
+									Cómputos Distritales 2015
+					____________________________________________________
+
+
+A. El Programa de Cómputos Distritales  permite la descarga de la base de datos a través de un archivo tar.gz que contienen archivos CSV.
+
+B. El archivo de texto plano contiene todas las casillas de base de datos y se nombran como diputados.txt
+
+C. La información en el archivo de texto plano se divide en dos secciones:
+
+   a. Primera sección, encabezado: 
+
+     i.	Se presenta la hora y la fecha de la generación de reportes, esta corresponde al que aparece en los reportes HTML, ejemplo:
+        20:00 horas (UTC-5)
+        Domingo 7 de junio de 2015
+
+     ii.Se presentan los nombres de los datos de la casilla que se están incluyendo, separados por pipes |, ejemplo:
+
+			CASILLAS_APROBADAS|CASILLAS_INSTALADAS|CASILLAS_NO_INSTALADAS|CON_PAQUETE_RECIBIDO|SIN_PAQUETE_RECIBIDO|COMPUTADAS
+
+        La descripción de cada campo se muestra a continuación:
+
+    	    1. CASILLAS_APROBADAS - Número de casillas aprobadas al momento de la generación del archivo. 
+
+			2. CASILLAS_INSTALADAS - Número de casillas instaladas al momento de la generación del archivo.
+
+			3. CASILLAS_NO_INSTALADAS - Número de casillas no instaladas que por algún motivo externo al INE no fueron instaladas.
+
+			4. CON_PAQUETE_RECIBIDO - Número de casillas sin paquete recibido, al momento de la generación del archivo.
+
+			5. SIN_PAQUETE_RECIBIDO - Número casillas cuyo paquete electoral no llegó a la Junta Distrital del INE debido a que fueron desinstaladas por factores externos. 
+
+			6. COMPUTADAS - Total de casillas computadas al momento de la generación del archivo.
+
+
+   b.  Segunda sección, datos de la casilla. Corresponde a los datos de la casilla extraídos de la base de datos, cada línea corresponde a una casilla, 
+	están separados por pipes |. Los datos son los siguientes:
+
+      ESTADO|DISTRITO|SECCION|ID_CASILLA|TIPO_CASILLA|EXT_CONTIGUA|UBICACION_CASILLA|TIPO_ACTA|NUM_BOLETAS_SOBRANTES|TOTAL_CIUDADANOS_VOTARON|NUM_BOLETAS_EXTRAIDAS|PAN|PRI|PRD|PVEM|PT|MOVIMIENTO_CIUDADANO|NUEVA_ALIANZA|MORENA|PH|ES|C_PRI_PVEM|C_PRD_PT|CAN_IND_1|CAND_IND_2|CAND_IND_3|CAND_IND_4|CAND_IND_5|NO_REGISTRADOS|NULOS|TOTAL_VOTOS|LISTA_NOMINAL|OBSERVACIONES|CONTABILIZADA
+
+
+	1. ESTADO - Número de la Entidad Federativa. De acuerdo al siguiente catálogo:
+		1.Aguascalientes
+		2.Baja California
+		3.Baja California Sur
+		4.Campeche
+		5.Coahuila
+		6.Colima
+		7.Chiapas
+		8.Chihuahua
+ 		9.Distrito Federal
+	 	10.Durango
+		11.Guanajuato
+		12.Guerrero
+		13.Hidalgo
+		14.Jalisco
+		15.México
+		16.Michoacán
+		17.Morelos
+		18.Nayarit
+		19.Nuevo León
+		20.Oaxaca
+		21.Puebla
+		22.Querétaro
+		23.Quintana Roo
+		24.San Luis Potosí
+		25.Sinaloa
+		26.Sonora
+		27.Tabasco
+		28.Tamaulipas
+		29.Tlaxcala
+		30.Veracruz
+		31.Yucatán
+		32.Zacatecas
+
+	2. DISTRITO - Número del distrito electoral de la entidad.
+
+	3. SECCION - Número de sección correspondiente a la casilla.
+
+	4. ID_CASILLA - Número identificador de la casilla. 
+
+	5. TIPO_CASILLA - Tipo de casilla; B.- Básica, C.- Contigua, E.- Extraordinaria, S.- Especial
+
+	6. EXT_CONTIGUA - Número de casilla contigua a una extraordinaria.
+
+	7. UBICACION_CASILLA - Identifica el tipo de casilla y toma los siguientes valores:
+		1. Urbana
+		2. No Urbana
+
+	8. TIPO_ACTA - Especifica el tipo de Acta 
+		2.- Acta de casilla para Diputados de mayoría relativa
+		3.- Acta de casilla especial para Diputados de mayoría relativa
+		4.- Acta de casilla especial para Diputados de representación proporcional
+		
+	9. NUM_BOLETAS_SOBRANTES - Total de boletas sobrantes 
+	
+	10. TOTAL_CIUDADANOS_VOTARON - Total de ciudadanos que votaron
+	
+	11. NUM_BOLETAS_EXTRAIDAS - Total de boletas sacadas de la urna
+
+	12. PAN - Número de votos para el Partido Acción Nacional
+
+	13. PRI - Número de votos para el Partido Revolucionario Institucional
+
+	14. PRD - Número de votos para el Partido de la Revolución Democrática
+
+	15. PVEM - Número de votos para el Partido Verde Ecologista de México
+
+	16. PT - Número de votos para el Partido del Trabajo
+
+	17. MOVIMIENTO_CIUDADANO - Número de votos para Movimiento Ciudadano
+
+	18. NUEVA_ALIANZA - Número de votos para Nueva Alianza
+
+	19.	MORENA - Número de votos para Morena
+	
+	20.	PH - Número de votos para el Partido Humanista
+	
+	21.	ES - Número de votos para Encuentro Social
+	
+	22.	C_PRI_PVEM - Número de votos para la coalición PRI-PVEM (cuando la coalición no existe en la entidad se indica con un guión “-”)
+	
+	23.	C_PRD_PT - Número de votos para la coalición PRD-PT (cuando la coalición no existe en la entidad se indica con un guión “-”)
+	
+	24.	CAND_IND_1 - Número de votos para el candidato independiente 1 (cuando el candidato independiente no existe en la entidad se indica con un guión “-”)
+	
+	25.	CAND_IND_2 - Número de votos para el candidato independiente 2 (cuando el candidato independiente no existe en la entidad se indica con un guión “-”)
+	
+	26.	CAND_IND_3 - Número de votos para el candidato independiente 3 (cuando el candidato independiente no existe en la entidad se indica con un guión “-”)
+	
+	27.	CAND_IND_4 - Número de votos para el candidato independiente 4 (cuando el candidato independiente no existe en la entidad se indica con un guión “-”)
+	
+	28.	CAND_IND_5 - Número de votos para el candidato independiente 5 (cuando el candidato independiente no existe en la entidad se indica con un guión “-”)
+
+	29. NO_REGISTRADOS - Número de votos para candidatos no registrados
+
+	30. NULOS - Número de votos nulos
+
+	31. TOTAL_VOTOS - Suma total de votos para la casilla (votos por partido, coalición, candidatos independientes, candidatos no registrados y nulos).
+		*****La suma se realiza automáticamente por el sistema del PREP con el fin de evitar errores de registro o aritméticos en las casillas.
+
+	32. LISTA_NOMINAL -  Número de votantes posibles de acuerdo a la lista nominal.
+
+	33. OBSERVACIONES - Indica con la leyenda:
+			Sin dato - Si la cantidad de votos no fue asentada en el acta de escrutinio y cómputo.
+			Excede lista nominal - Si la suma total de votos excede el número de votantes permitidos para la casilla.
+			Sin Acta (motivo) - Si el acta de escrutinio y cómputo no llegó junto con el paquete electoral al CATD respectivo por alguna de
+			los siguientes motivos:
+				1	Paquete no Entregado
+				2	Casilla no Instalada
+				
+			
+	34. CONTABILIZADA
+			-Obtiene el valor "1" cuando la casilla es contabilizada
+			-Obtiene el valor "0" cuando la casilla no es contabilizada. Si la casilla no se contabiliza, se señala la razón en el campo de Observaciones.
