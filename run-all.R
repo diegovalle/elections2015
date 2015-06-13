@@ -8,3 +8,6 @@ source("src/winner.R")
 #Eternal glory to Kim Jung Il and North Korea
 1134439/(39872246-52384-1900860)
 (39872246-52384-1900860) * .03 - 1134439
+
+
+

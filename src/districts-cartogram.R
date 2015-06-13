@@ -21,41 +21,41 @@ cartogramMap <- function(districts, var, title, low = "gray92", high) {
 }
 
 cartogramMap(districts, "PRI_T", high = "#ec242a", 
-             title = "PRI vote equal area cartogram, by district") %>%
+             title = "PRI votes equal area cartogram, by district") %>%
   savePlot("PRI-cartograma")
 cartogramMap(districts, "PVEM_T", high = "#2ca25f", 
-             title = "PVEM vote equal area cartogram, by district")%>%
+             title = "PVEM votes equal area cartogram, by district")%>%
   savePlot("PVEM-cartograma")
 cartogramMap(districts,  "PAN", high = "#02569b", 
-             title = "PAN vote equal area cartogram, by district")%>%
+             title = "PAN votes equal area cartogram, by district")%>%
   savePlot("PAN-cartograma")
 cartogramMap(districts, "PRD_T", high = "#fec44f", 
-             title = "PRD vote equal area cartogram, by district")%>%
+             title = "PRD votes equal area cartogram, by district")%>%
   savePlot("PRD-cartograma")
 cartogramMap(districts,  "MORENA", high = "#d95f0e", 
-             title = "MORENA vote equal area cartogram, by district")%>%
+             title = "MORENA votes equal area cartogram, by district")%>%
   savePlot("MORENA-cartograma")
 cartogramMap(districts,  "MOVIMIENTO_CIUDADANO", high = "#f58e1e", 
-             title = "MC vote equal area cartogram, by district")%>%
+             title = "MC votes equal area cartogram, by district")%>%
   savePlot("MC-cartograma")
 
 cartogramMap(districts, "NUEVA_ALIANZA", high = "#37b4b7", 
-             title = "PANAL vote equal area cartogram, by district")%>%
+             title = "PANAL votes equal area cartogram, by district")%>%
   savePlot("PANAL-cartograma")
 cartogramMap(districts,  "PT", high = "#e8122e", 
-             title = "PT vote equal area cartogram, by district")%>%
+             title = "PT votes equal area cartogram, by district")%>%
   savePlot("PT-cartograma")
 cartogramMap(districts,  "PH", high = "#a7448b", 
-             title = "PH vote equal area cartogram, by district")%>%
+             title = "PH votes equal area cartogram, by district")%>%
   savePlot("PH-cartograma")
 cartogramMap(districts,  "PS", high = "#643179", 
-             title = "Encuentro Social vote equal area cartogram, by district")%>%
+             title = "Encuentro Social votes equal area cartogram, by district")%>%
   savePlot("ES-cartograma")
 
 cartogramMap(districts,  "C_PRI_PVEM_T", high = "#ec242a", 
-             title = "PRI and PVEM vote equal area cartogram, by district")%>%
+             title = "PRI and PVEM votes equal area cartogram, by district")%>%
   savePlot("PRIPVEM-cartograma")
 
 cartogramMap(districts,  "C_PRD_PT_T", high = "#fec44f", 
-             title = "PRD and PT vote equal area cartogram, by district")%>%
+             title = "PRD and PT votes equal area cartogram, by district")%>%
   savePlot("PRDPT-cartograma")

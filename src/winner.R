@@ -1,23 +1,23 @@
-plotWinner <- function(winner, cartogram, state_cartogram, values, breaks, labels) {
-ggplot(winner, aes(map_id = id)) + 
-  geom_map(aes(fill = winner), map=cartogram, color="gray30", size = .1) +
-  geom_polygon(data = state_cartogram, aes(long,lat, group=group),
-               color = "black", size = .25, fill = "transparent") +
-  expand_limits(x = cartogram$long, y = cartogram$lat) +
-  coord_map()+
-  theme_bw() +
-  scale_fill_manual("party", values = values, 
-                    breaks = breaks,
-                    labels = labels) +
-  ggtitle("Winning party, by district") +
-  theme(panel.border=element_blank()) +
-  theme(panel.grid=element_blank()) +
-  theme(axis.ticks=element_blank()) +
-  theme(axis.text=element_blank()) + 
-  labs(x=NULL, y=NULL)
+plotWinner <- function(winner, cartogram, state_cartogram, values, breaks, labels, legend, 
+                       title) {
+  ggplot(winner, aes(map_id = id)) + 
+    geom_map(aes(fill = winner), map=cartogram, color="gray30", size = .1) +
+    geom_polygon(data = state_cartogram, aes(long,lat, group=group),
+                 color = "black", size = .25, fill = "transparent") +
+    expand_limits(x = cartogram$long, y = cartogram$lat) +
+    coord_map()+
+    theme_bw() +
+    scale_fill_manual(legend, values = values, 
+                      breaks = breaks,
+                      labels = labels) +
+    ggtitle(title) +
+    theme(panel.border=element_blank()) +
+    theme(panel.grid=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    theme(axis.text=element_blank()) + 
+    labs(x=NULL, y=NULL)
 }
-
-plotWinner(winner, cartogram, state_cartogram,
+p <- plotWinner(winner, cartogram, state_cartogram,
            values = c("PRI" = "#ec242a", "PAN" = "#02569b", "PRD" = "#ffff00",
                       "MORENA" = "#610200", "PVEM" = "#2ca25f", "MOVIMIENTO_CIUDADANO" = "#f58e1e",
                       "NUEVA_ALIANZA" = "#37b4b7",
@@ -28,10 +28,12 @@ plotWinner(winner, cartogram, state_cartogram,
                       "NUEVA_ALIANZA", "C_PRI_PVEM_T", "C_PRD_PT_T"),
            labels = c("PRI", "PAN", "PRD", 
                       "MORENA", "PVEM", "MC", 
-                      "PANAL", "PRI+PVEM", "PRD+PT"))
-ggsave(str_c("graphs/", "winner", ".png"), width = 9, height = 7, dpi = 100)
+                      "PANAL", "PRI+PVEM", "PRD+PT"),
+           legend = "party or coalition",
+           title = "Winning party or coalition, by district")
+ggsave(plot = addSource(p), str_c("graphs/", "winner", ".png"), width = 9, height = 7, dpi = 100)
 
-plotWinner(winner.party, cartogram, state_cartogram,
+p <- plotWinner(winner.party, cartogram, state_cartogram,
            values = c("PRI_T" = "#ec242a", "PRI" = "#ec242a", "PAN" = "#02569b", "PRD_T" = "#ffcb01",
                       "PRD" = "#ffcb01",
                       "MORENA" = "#610200", "PVEM_T" = "#2ca25f", "PVEM" = "#2ca25f",
@@ -44,5 +46,7 @@ plotWinner(winner.party, cartogram, state_cartogram,
                       "NUEVA_ALIANZA", "C_PRI_PVEM_T", "C_PRD_PT_T"),
            labels = c("PRI", "PAN", "PRD", 
                       "MORENA", "PVEM", "MC", 
-                      "PANAL", "PRI+PVEM", "PRD+PT"))
-ggsave(str_c("graphs/", "winner-party", ".png"), width = 9, height = 7, dpi = 100)
+                      "PANAL", "PRI+PVEM", "PRD+PT"),
+           legend = "party",
+           title = "Winning party, by district")
+ggsave(plot = addSource(p), str_c("graphs/", "winner-party", ".png"), width = 9, height = 7, dpi = 100)

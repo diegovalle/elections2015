@@ -1,6 +1,7 @@
 
 savePlot <- function(p, title) {
-  ggsave(plot = p, str_c("graphs/", title, ".png"), width = 8, height = 5, dpi = 100)
+  ggsave(plot = addSource(p), 
+         str_c("graphs/", title, ".png"), width = 8, height = 5, dpi = 100)
 }
 
 #Hex Grid Map
@@ -47,11 +48,11 @@ mapStates(map, estados, centers, "MOVIMIENTO_CIUDADANO", high = "#f58e1e",
   savePlot("MC-estados")
 
 mapStates(map, estados, centers, "NUEVA_ALIANZA", high = "#37b4b7", 
-          title = "PANALvotes, by state")%>%
+          title = "PANAL votes, by state")%>%
   savePlot("PANAL-estados")
 mapStates(map, estados, centers, "PT_T", high = "#e8122e", 
           title = "PT votes, by state")%>%
-  savePlot("PRI-estados")
+  savePlot("PT-estados")
 mapStates(map, estados, centers, "PH", high = "#a7448b", 
           title = "PH votes, by state")%>%
   savePlot("PH-estados")
@@ -66,16 +67,12 @@ mapStates(map, estados, centers, "C_PRD_PT_T", high = "#fec44f",
   savePlot("PRDPT-estados")
 #mapStates(map, NULO, high = "#ffffff", title = "Porcentaje de Voto NULO (PREP), por Estado")
 
-
 #Voto MORENA como porcentaje del voto PRD
-MPRD <- dip %>%
-  group_by(ESTADO) %>%
-  summarise(per = (sum(as.numeric(MORENA), na.rm = TRUE) / 
-                     (sum(as.numeric(TOTAL_VOTOS), na.rm = TRUE))) -
-              (sum(as.numeric(PRD), na.rm = TRUE) / 
-                 sum(as.numeric(TOTAL_VOTOS), na.rm = TRUE)))  %>%
-  mutate(PARTIDO = "MPRD") %>%
-  rename(state_code = ESTADO)
+MPRD <- estados[,c("per", "PARTIDO", "state_code")] %>%
+  filter(PARTIDO %in% c("MORENA", "PRD_T")) %>%
+  spread(PARTIDO, per) %>%
+  mutate(PARTIDO = "MPRD") 
+MPRD$per <- MPRD$MORENA - MPRD$PRD_T
 mapStates(map, MPRD, centers, "MPRD", low = "#d8b365", high = "#5ab4ac", 
           title = "MORENA votes - PRD votes") +
   scale_fill_gradient2("percent", high = "#991b06", low = "#f7cf00", midpoint = 0, mid = "#f5f5f5",

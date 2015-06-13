@@ -1,4 +1,11 @@
-
+addSource <- function(plot, text = " Cómputos Distritales 2015 sobre la elección de Diputados Federales. Faltan impuganciones por el TRIFE") {
+  plot <- arrangeGrob(plot, 
+                      sub = textGrob(text,
+                                     x = 0, hjust = -0.1, vjust=0.1,
+                                     gp = gpar(fontface = "italic", fontsize = 9,
+                                               col = "gray30")))
+  return(plot)
+}
 # dip2009 <- read_delim("data/2009-03090433.txt", delim = ";",
 #                       col_names = c("CIRCUNSCRIPCION" ,"CLAVE ENTIDAD" ,"ENTIDAD FEDERATIVA" ,"DISTRITO" ,"CABECERA DISTRITAL" ,"SECCIONES" ,"CASILLAS" ,"PAN" ,"PRI" ,"PRD" ,"PVEM" ,"PT" ,"CONVERGENCIA" ,"NUEVA_ALIANZA" ,"PSD" ,"PRIMERO_MEXICO" ,"SALVEMOS_MEXICO" ,"NO_REG" ,"NULOS" ,"TOTAL_VOTOS" ,"LISTA_NOMINAL" ,"OBSERVACIONES", "null"),
 #                       skip = 1)
