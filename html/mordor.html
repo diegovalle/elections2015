@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mexican Presidential Election 2012</title>
+	<meta charset="utf-8" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<meta property="og:description" content="Mexican Presidential Election by District"/>
+<meta property="og:image" content="http://4.bp.blogspot.com/-bmcxI5K3ZdI/URmgDj3eVII/AAAAAAAAGKM/B_rkQ_bedm4/s400/plot.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Mexican Presidential Election 2012"/>
+<meta property="og:title" content="Mexican Presidential Election 2012"/>
+<meta property="og:url" content="http://www.diegovalle.net/maps/mordor"/>
+<meta content="808656520" property="fb:admins"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+<![endif]-->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+
+	<style>
+	html, body {
+ height: 100%;
+
+}
+
+.social-buttons{display:block;list-style:none;padding:0px;margin:4px 0 0 0px;float:right;}
+
+li {margin-top:5px;}
+
+#infobox{padding:10px;position:absolute;width:300px;height:390px;background:rgba(255,255,255,1);-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000);zoom:1;font-family:"Fontin Sans","Lucida Grande","Arial","Helvetica","Verdana","Gill Sans",sans-serif;font-size:0.990em;color:#000;right:64px;font-size:.8em;top:45px;overflow:visible;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;box-shadow:2px 2px 5px #000;-moz-box-shadow:2px 2px 5px #000;-webkit-box-shadow:2px 2px 5px #000;}
+.legend {
+			text-align: left;
+			line-height: 18px;
+			color: #555;
+		}
+		.legend i {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.7;
+		}
+#map {
+   width: 100% !important; height: 100% !important;
+}
+line{
+  shape-rendering: crispEdges;
+}
+rect{
+  shape-rendering: crispEdges;
+}
+path {
+  fill: red;
+  fill-opacity: .7;
+  stroke: #000;
+  stroke-opacity: .6;
+  stroke-width: .5px;
+}
+
+.rule{
+color: black;
+font-family: 'Ubuntu',Tahoma,sans-serif;
+}
+path:hover {
+  fill: white;
+  fill-opacity: 1;
+  stroke: #000;
+  stroke-opacity: 1;
+  stroke-width: 1.5px;
+}
+
+	</style>
+</head>
+<body>
+
+	<div id="map"></div>
+
+
+<script>
+/*
+ * This product includes color specifications and designs developed by Cynthia
+ * Brewer (http://colorbrewer.org/).
+ */
+var colorbrewer = {
+
+Blues:{3:["rgb(222,235,247)","rgb(158,202,225)","rgb(49,130,189)"],4:["rgb(239,243,255)","rgb(189,215,231)","rgb(107,174,214)","rgb(33,113,181)"],5:["rgb(239,243,255)","rgb(189,215,231)","rgb(107,174,214)","rgb(49,130,189)","rgb(8,81,156)"],6:["rgb(239,243,255)","rgb(198,219,239)","rgb(158,202,225)","rgb(107,174,214)","rgb(49,130,189)","rgb(8,81,156)"],7:["rgb(239,243,255)","rgb(198,219,239)","rgb(158,202,225)","rgb(107,174,214)","rgb(66,146,198)","rgb(33,113,181)","rgb(8,69,148)"],8:["rgb(247,251,255)","rgb(222,235,247)","rgb(198,219,239)","rgb(158,202,225)","rgb(107,174,214)","rgb(66,146,198)","rgb(33,113,181)","rgb(8,69,148)"],9:["rgb(247,251,255)","rgb(222,235,247)","rgb(198,219,239)","rgb(158,202,225)","rgb(107,174,214)","rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)"]},
+YlOrBr:{3:["rgb(255,247,188)","rgb(254,196,79)","rgb(217,95,14)"],4:["rgb(255,255,212)","rgb(254,217,142)","rgb(254,153,41)","rgb(204,76,2)"],5:["rgb(255,255,212)","rgb(254,217,142)","rgb(254,153,41)","rgb(217,95,14)","rgb(153,52,4)"],6:["rgb(255,255,212)","rgb(254,227,145)","rgb(254,196,79)","rgb(254,153,41)","rgb(217,95,14)","rgb(153,52,4)"],7:["rgb(255,255,212)","rgb(254,227,145)","rgb(254,196,79)","rgb(254,153,41)","rgb(236,112,20)","rgb(204,76,2)","rgb(140,45,4)"],8:["rgb(255,255,229)","rgb(255,247,188)","rgb(254,227,145)","rgb(254,196,79)","rgb(254,153,41)","rgb(236,112,20)","rgb(204,76,2)","rgb(140,45,4)"],9:["rgb(255,255,229)","rgb(255,247,188)","rgb(254,227,145)","rgb(254,196,79)","rgb(254,153,41)","rgb(236,112,20)","rgb(204,76,2)","rgb(153,52,4)","rgb(102,37,6)"]},
+Reds:{3:["rgb(254,224,210)","rgb(252,146,114)","rgb(222,45,38)"],4:["rgb(254,229,217)","rgb(252,174,145)","rgb(251,106,74)","rgb(203,24,29)"],5:["rgb(254,229,217)","rgb(252,174,145)","rgb(251,106,74)","rgb(222,45,38)","rgb(165,15,21)"],6:["rgb(254,229,217)","rgb(252,187,161)","rgb(252,146,114)","rgb(251,106,74)","rgb(222,45,38)","rgb(165,15,21)"],7:["rgb(254,229,217)","rgb(252,187,161)","rgb(252,146,114)","rgb(251,106,74)","rgb(239,59,44)","rgb(203,24,29)","rgb(153,0,13)"],8:["rgb(255,245,240)","rgb(254,224,210)","rgb(252,187,161)","rgb(252,146,114)","rgb(251,106,74)","rgb(239,59,44)","rgb(203,24,29)","rgb(153,0,13)"],9:["rgb(255,245,240)","rgb(254,224,210)","rgb(252,187,161)","rgb(252,146,114)","rgb(251,106,74)","rgb(239,59,44)","rgb(203,24,29)","rgb(165,15,21)","rgb(103,0,13)"]},
+};
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.min.js"></script>
+<script src="//www.diegovalle.net/javascript/topojson.v0.min.js"></script>
+
+
+
+
+<div id="infobox">
+<h1 style="font-size: 14px;font-family: Verdana;">Mexican Presidential Election 2015</h1>
+	<div>
+	  <label for="select">Party to Display on Map:</label>
+	  <select>
+	    <option value="PRI">PRI</option>
+	    <option value="PRD">PRD</option>
+            <option value="PAN">PAN</option>
+            <option value="Cluster">Cluster</option>
+	  </select>
+	</div>
+	<p id="caption">PRI: 38.2% PRD: 31.6% PAN: 25.4% (Final Result)</p>
+	<div class="chart"></div>
+<hr/>
+<ul class='social-buttons'>
+<li style="margin:10px 0px 10px 0">
+<a class='twitter-share-button'  data-count='vertical' data-related='diegovalle' data-via='diegovalle' data-text='Map of the 2015 Mexican Election' href='https://twitter.com/share'>
+</a>
+</li>
+<li>
+<div id='fb-root'></div>
+<div class='fb-like' data-colorscheme='light' data-layout='box_count' data-show-faces='false' data-width='40' href='http://www.diegovalle.net/maps/mordor'></div>
+</li>
+</ul>
+<p>Map Legend (<a href='http://blog.diegovalle.net/2013/02/mexican-presidential-election-by.html'>blog post</a>):</p>
+<div class="legend">
+<i id="n0" style="background-color: rgb(255, 245, 240); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t0">(0%, 7.4%]</span><br>
+<i id="n1" style="background-color: rgb(254, 224, 210); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t1">(7.4%, 14.9%]</span><br>
+<i id="n2" style="background-color: rgb(252, 187, 161); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t2">(14.9%, 22.3%]</span><br>
+<i id="n3" style="background-color: rgb(252, 146, 114); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t3">(22.3%, 29.8%]</span><br>
+<i id="n4" style="background-color: rgb(251, 106, 74); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t4">(29.8%, 37.2%]</span><br>
+<i id="n5" style="background-color: rgb(239, 59, 44); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t5">(37.2%, 44.7%]</span><br>
+<i id="n6" style="background-color: rgb(203, 24, 29); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t6">(44.7%, 52.2%]</span><br>
+<i id="n7" style="background-color: rgb(165, 15, 21); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t7">(52.2%, 59.6%]</span><br>
+<i id="n8" style="background-color: rgb(103, 0, 13); background-position: initial initial; background-repeat: initial initial;"></i> <span id="t8">(59.6%, 67.1%]</span></div>
+
+	<script type="text/javascript">
+/*Colors for the clustering of Mexican electoral preferences*/
+var clusterColors = ["#E41A1C","#FFFF33","#2166AC",
+		     "#984EA3", "#FF7F00","white", "white",
+                     "white", "white"];
+/*The intuitive names of the clusters*/
+var clusterNames = ["PRI", "PRD", "PAN","PRI-PAN",
+		    "PRI-PRD", "", "", "", ""];
+//legend labels
+var cutPoints = ["(0%, 7.4%]", "(7.4%, 14.9%]", "(14.9%, 22.3%]",
+		 "(22.3%, 29.8%]",
+		 "(29.8%, 37.2%]", "(37.2%, 44.7%]",
+		 "(44.7%, 52.2%]", "(52.2%, 59.6%]", "(59.6%, 67.1%]"];
+
+var feature, selection = "PRI";
+var digit = d3.format(".1%");
+var digit0 = d3.format(".0%");
+
+colorScale = function(){
+    if (selection == "PRI")
+        return colorbrewer.Reds[9];
+    else if (selection == "PAN")
+    return colorbrewer.Blues[9];
+    else if (selection == "PRD")
+    return colorbrewer.YlOrBr[9];
+};
+var color = function() { return d3.scale.quantize()
+			 .domain([0, 0.6703397])
+			 .range(colorScale());};
+
+var caption = d3.select('#caption')
+, starter = caption.html();
+function showCaption(d, i) {
+    barData = [d.properties.PRI, d.properties.PRD, d.properties.PAN,
+               d.properties.MORENA, d.properties.PVEM,
+               d.properties.MOVIMIENTO_CIUDADANO,
+               d.properties.NUEVA_ALIANZA, d.properties.PS,
+               d.properties.PRIPVEM, d.properties.PRDPT];
+    redraw();
+    caption.html(["PRI:", digit(d.properties.PRI),
+                  "PRD:", digit(d.properties.PRD),
+                  "PAN:", digit(d.properties.PAN)].join(" ") + d.properties.NOMDISTRITO);
+}
+
+var map = L.map('map').setView([24.8, -96], 5);
+
+var cloudmade = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20}).addTo(map);
+
+/* Initialize the SVG layer */
+map._initPathRoot()  ;
+/* We simply pick up the SVG from the map object */
+var svg = d3.select("#map").select("svg"),
+g = svg.append("g");
+
+var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+d3.json("final.json", function(topology) {
+	    var bounds = d3.geo.bounds(topojson.object(topology, topology.objects.distritos)),
+	    path = d3.geo.path().projection(project);
+
+	    feature = g.selectAll("path")
+		.data(topojson.object(topology, topology.objects.distritos).geometries)
+		.enter().append("path")
+		.style("fill",function(d) { return color()(d.properties[selection]);  })
+		.on('mouseover', showCaption)
+		.on('mousemove', showCaption)
+		.on('mouseout', function() {
+	    		caption.html(starter);
+			barData = [.38, .31, .25];
+			redraw();
+		    });
+	    ;
+
+
+	    map.on("viewreset", reset);
+	    reset();
+
+	    // Reposition the SVG to cover the features.
+	    function reset() {
+		var bottomLeft = project(bounds[0]),
+		topRight = project(bounds[1]);
+
+		svg .attr("width", topRight[0] - bottomLeft[0])
+		    .attr("height", bottomLeft[1] - topRight[1])
+		    .style("margin-left", bottomLeft[0] + "px")
+		    .style("margin-top", topRight[1] + "px");
+
+		g   .attr("transform", "translate(" + -bottomLeft[0] + "," + -topRight[1] + ")");
+
+		feature.attr("d", path);
+	    }
+
+
+
+	    // Use Leaflet to implement a D3 geographic projection.
+	    function project(x) {
+		var point = map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
+		return [point.x, point.y];
+	    }
+	});
+
+
+d3.select("select").on("change", function() {
+			   selection = this.value.toString();
+			   if(selection != "Cluster")
+			       for(i=0;i<9;i++) {
+				   d3.select("#n" + i).style("background",colorScale()[i]);
+				   d3.select("#t" + i).html(cutPoints[i]);
+			       }
+			   else
+			       for(i=0;i<9;i++) {
+				   d3.select("#n" + i).style("background",clusterColors[i]);
+				   d3.select("#t" + i).html(clusterNames[i]);
+			       }
+			   d3.selectAll("path").style("fill",function(d) {
+							  if (selection == "Cluster")
+							      return d.properties.color;
+							  else
+							      return color()(d.properties[selection]); });
+});
+
+	</script>
+<script>
+//final results of the 2015 election
+var barData = [.292, .109, .210, .084, .069, .061, .037, .033, 0, 0];
+var gap = 2;
+var maxper= .79;
+//padding for the party labels
+var left_padding = 57;
+var w = 220,
+    h = 220;
+
+var x = d3.scale.linear()
+    .domain([0, maxper])
+    .range([0, w]);
+var y = d3.scale.ordinal()
+    .domain(barData)
+    .rangeBands([0, h]);
+
+var chart = d3.select(".chart").append("svg")
+    .attr("class", "chart")
+    .attr("width", w+left_padding+10)
+    .attr("height", h)
+    .append("g")
+    .attr("transform", "translate(20,15)");
+
+//the lines at 20,40,60
+chart.selectAll("line")
+    .data(x.ticks(3))
+    .enter().append("line")
+    .attr("x1", function(d) { return x(d) + left_padding; })
+    .attr("x2", function(d) { return x(d) + left_padding; })
+    .attr("y1", -3)
+    .attr("y2", 120)
+    .style("stroke", function(d, i) {return i == 0 ? "#000": "#bbb";});
+
+//the text at the top of the lines
+chart.selectAll(".rule")
+    .data(x.ticks(3))
+    .enter().append("text")
+     .attr("class", "rule")
+    .attr("x", function(d) { return x(d) + left_padding; })
+    .attr("y", 0)
+    .attr("dy", -4)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 10)
+    .text(function(d){return digit0(d)});
+
+//the bars
+chart.selectAll("rect")
+    .data(barData)
+    .enter().append("rect")
+    .attr("x", function(d, i) { return left_padding; })
+    .attr("y", function(d, i) { return i * 20; })
+    .attr("width", x)
+    .attr("height", 20)
+    .attr("fill",  function(d, i) { if(i == 1) return "#FFFF33";
+                                    if(i == 2) return "#377EB8";
+                                    if(i == 0) return "#E41A1C";
+                                    if(i == 3) return "#d95f0e";
+                                    if(i == 4) return "#2ca25f";
+                                    if(i == 5) return "#f58e1e";
+                                    if(i == 6) return "#37b4b7";
+                                    if(i == 7) return "#643179";
+                                    if(i == 8) return "#bd0026";
+                                    if(i == 9) return "#d5b60a";});
+
+//labels for the parties
+chart.selectAll("text.name")
+    .data(["PRI", "PRD", "PAN", "MORENA", "PVEM", "MC", "PANAL", "PS", "PRIPVEM", "PRDPT"])
+    .enter().append("text")
+    .attr("x", 0)
+    .attr("y", function(d, i){ return i * 20 + 10; } )
+    .attr("dy", ".36em")
+    .attr("text-anchor", "left")
+    .attr('class', 'name')
+    .attr("font-size", 12)
+    .attr("font-family","'Ubuntu',Tahoma,sans-serif")
+    .text(String);
+
+function redraw() {
+
+    // Update…
+    chart.selectAll("rect")
+        .data(barData)
+	.transition()
+        .duration(400)
+        .attr("y", function(d, i) { return i * 20; })
+	.attr("width", x);
+
+ chart.selectAll("text")
+	.data(barData)
+	.enter().append("text")
+	.attr("stroke", "black")
+	.attr("x", x)
+	.attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
+	.attr("dx", -3) // padding-right
+	.attr("dy", ".35em") // vertical-align: middle
+	.attr("text-anchor", "end") // text-align: right
+	.text(String);
+ }
+</script>
+<script id="deferedjs" type="text/javascript">
+      var _gaq=[['_setAccount','UA-100264-1'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+      _gaq.push(['_setSiteSpeedSampleRate', 5]);  //Measure Page Speed
+
+    </script>
+<script type="text/javascript">
+      (function(doc, script) {
+  var js,
+      fjs = doc.getElementsByTagName(script)[0],
+      frag = doc.createDocumentFragment(),
+      add = function(url, id) {
+          if (doc.getElementById(id)) {return;}
+          js = doc.createElement(script);
+          js.src = url;
+          id && (js.id = id);
+          frag.appendChild( js );
+      };
+
+
+    // Facebook SDK
+    add('//connect.facebook.net/en_US/all.js#xfbml=1&appId=212097428820706', 'facebook-jssdk');
+    // Twitter SDK
+    add('//platform.twitter.com/widgets.js');
+
+    fjs.parentNode.insertBefore(frag, fjs);
+
+}(document, 'script'));
+</script>
+<!--[if lt IE 9 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+    <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+    <![endif]-->
+</body>
+</html>
