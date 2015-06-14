@@ -19,6 +19,7 @@
 <![endif]-->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script src="chroma.min.js"></script>
 	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
 
 	<style>
@@ -106,7 +107,14 @@ Reds:{3:["rgb(254,224,210)","rgb(252,146,114)","rgb(222,45,38)"],4:["rgb(254,229
 	    <option value="PRI">PRI</option>
 	    <option value="PRD">PRD</option>
             <option value="PAN">PAN</option>
-            <option value="Cluster">Cluster</option>
+            <option value="MORENA">MORENA</option>
+            <option value="PVEM">PVEM</option>
+            <option value="MOVIMIENTO_CIUDADANO">MC</option>
+            <option value="NUEVA_ALIANZA">PANAL</option>
+            <option value="PS">PS</option>
+            <option value="PRIPVEM">PRIPVEM</option>
+            <option value="PRDPT">PRDPT</option>
+            <option value="Winner">Winner</option>
 	  </select>
 	</div>
 	<p id="caption">PRI: 38.2% PRD: 31.6% PAN: 25.4% (Final Result)</p>
@@ -146,7 +154,7 @@ var clusterNames = ["PRI", "PRD", "PAN","PRI-PAN",
 var cutPoints = ["(0%, 7.4%]", "(7.4%, 14.9%]", "(14.9%, 22.3%]",
 		 "(22.3%, 29.8%]",
 		 "(29.8%, 37.2%]", "(37.2%, 44.7%]",
-		 "(44.7%, 52.2%]", "(52.2%, 59.6%]", "(59.6%, 67.1%]"];
+		 "(44.7%, 52.2%]", "(52.2%, 59.6%]", "(59.6%, 79%]"];
 
 var feature, selection = "PRI";
 var digit = d3.format(".1%");
@@ -161,7 +169,7 @@ colorScale = function(){
     return colorbrewer.YlOrBr[9];
 };
 var color = function() { return d3.scale.quantize()
-			 .domain([0, 0.6703397])
+			 .domain([0, .691])
 			 .range(colorScale());};
 
 var caption = d3.select('#caption')
@@ -173,9 +181,10 @@ function showCaption(d, i) {
                d.properties.NUEVA_ALIANZA, d.properties.PS,
                d.properties.PRIPVEM, d.properties.PRDPT];
     redraw();
-    caption.html(["PRI:", digit(d.properties.PRI),
-                  "PRD:", digit(d.properties.PRD),
-                  "PAN:", digit(d.properties.PAN)].join(" ") + d.properties.NOMDISTRITO);
+    caption.html(//["PRI:", digit(d.properties.PRI),
+                 // "PRD:", digit(d.properties.PRD),
+                 // "PAN:", digit(d.properties.PAN)].join(" ") +
+                  d.properties.NOMDISTRITO);
 }
 
 var map = L.map('map').setView([24.8, -96], 5);
@@ -241,12 +250,59 @@ d3.json("final.json", function(topology) {
 	});
 
 
+pri_scale = chroma.scale(['#e5e5e5', '#ec242a']).domain([0,.7], 9);
+pan_scale = chroma.scale(['#e5e5e5', '#02569b']).domain([0,.7], 9);
+prd_scale = chroma.scale(['#e5e5e5', '#fec44f']).domain([0,.7], 9);
+morena_scale = chroma.scale(['#e5e5e5', '#d95f0e']).domain([0,.7], 9);
+pvem_scale = chroma.scale(['#e5e5e5', '#2ca25f']).domain([0,.7], 9);
+mc_scale = chroma.scale(['#e5e5e5', '#f58e1e']).domain([0,.7], 9);
+ps_scale = chroma.scale(['#e5e5e5', '#643179']).domain([0,.7], 9);
+panal_scale = chroma.scale(['#e5e5e5', '#37b4b7']).domain([0,.7], 9);
+pripvem_scale = chroma.scale(['#e5e5e5', '#bd0026']).domain([0,.7], 9);
+prdpt_scale = chroma.scale(['#e5e5e5', '#d5b60a']).domain([0,.7], 9);
+
+choose_scale(party){
+switch(party) {
+    case "PRI":
+        return pri_scale;
+        break;
+    case "PRD":
+        return prd_scale;
+        break;
+    case "PAN":
+        return pan_scale;
+        break;
+    case "MORENA":
+        return morena_scale;
+        break;
+    case "PVEM":
+        return pvem_scale;
+        break;
+    case "MC":
+        return mc_scale;
+        break;
+    case "PS":
+        return ps_scale;
+        break;
+    case "PANAL":
+        return panal_scale;
+        break;
+    case "PRIPVEM":
+        return pripvem_scale;
+        break;
+    case "PRDPT":
+        return prdpt_scale;
+        break;
+}
+}
+
+
 d3.select("select").on("change", function() {
 			   selection = this.value.toString();
 			   if(selection != "Cluster")
 			       for(i=0;i<9;i++) {
-				   d3.select("#n" + i).style("background",colorScale()[i]);
-				   d3.select("#t" + i).html(cutPoints[i]);
+				   d3.select("#n" + i).style("background", chroma.scale('Blues').domain([0,8], 9)(i).hex());
+				   //d3.select("#t" + i).html(cutPoints[i]);
 			       }
 			   else
 			       for(i=0;i<9;i++) {
@@ -257,7 +313,9 @@ d3.select("select").on("change", function() {
 							  if (selection == "Cluster")
 							      return d.properties.color;
 							  else
-							      return color()(d.properties[selection]); });
+							     //return color()(d.properties[selection]);
+                                                              return chroma.scale('Reds').domain([0,.7], 9)(d.properties[selection]).hex();
+                           });
 });
 
 	</script>
