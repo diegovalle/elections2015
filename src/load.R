@@ -95,10 +95,10 @@ winner.party <- rbind(filter(districts, id %in% pripvem_ids & PARTIDO %in% c("PR
   summarise(max = max(per), winner = PARTIDO[which.max(per)[1]])
 
 #map data
-cartogram <- readOGR("map/distrito.shp", "distrito")
+cartogram_shp <- readOGR("map/distrito.shp", "distrito")
 #create a state map
-state_cartogram <- unionSpatialPolygons(cartogram, cartogram@data$ENTIDAD)
-cartogram <- fortify(cartogram, region="CLAVEGEO")
-state_cartogram <- fortify(state_cartogram, region="ENTIDAD")
+state_cartogram_shp <- unionSpatialPolygons(cartogram_shp, cartogram_shp@data$ENTIDAD)
+cartogram <- fortify(cartogram_shp, region="CLAVEGEO")
+state_cartogram <- fortify(state_cartogram_shp, region="ENTIDAD")
 
 
