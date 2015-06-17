@@ -1,10 +1,10 @@
 /*Colors for the clustering of Mexican electoral preferences*/
 var clusterColors = ["#E41A1C", "#FFFF33","#2166AC",
 		     "#610200", "#f58e1e","#37b4b7", "#bd0026",
-                     "#d5b60a", "white"];
+                     "#d5b60a", "#4d4d4d"];
 /*The intuitive names of the clusters*/
 var clusterNames = ["PRI", "PAN", "PRD","MORENA",
-		    "MC", "PANAL", "PRI+PVEM", "PRD+PT", ""];
+		    "MC", "PANAL", "PRI+PVEM", "PRD+PT", "INDEP"];
 //legend labels
 var cutPoints = ["(0%, 7.4%]", "(7.4%, 14.9%]", "(14.9%, 22.3%]",
 		 "(22.3%, 29.8%]",
@@ -72,7 +72,7 @@ function showCaption(d, i) {
                d.properties.MORENA, d.properties.PVEM,
                d.properties.MOVIMIENTO_CIUDADANO,
                d.properties.NUEVA_ALIANZA, d.properties.PS,
-               d.properties.PRIPVEM, d.properties.PRDPT];
+               d.properties.PRIPVEM, d.properties.PRDPT, d.properties.INDEP];
     redraw();
     caption.html(//["PRI:", digit(d.properties.PRI),
         // "PRD:", digit(d.properties.PRD),
@@ -122,11 +122,12 @@ d3.json("final.json", function(topology) {
 	.data(topojson.object(topology, topology.objects.distritos).geometries)
 	.enter().append("path")
 	.style("fill",function(d) { return choose_scale("PRI")(d.properties["PRI"]).hex();;  })
+        .on('click', showCaption)
 	.on('mouseover', showCaption)
-	.on('mousemove', showCaption)
+//	.on('mousemove', showCaption)
 	.on('mouseout', function() {
 	    caption.html(starter);
-	    barData = [.292, .109, .210, .084, .069, .061, .037, .033, 0, 0];
+	    barData = [.292, .109, .210, .084, .069, .061, .037, .033, 0, 0, .006];
 	    redraw();
 	});
     ;

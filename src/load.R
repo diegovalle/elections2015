@@ -48,7 +48,7 @@ zero <- function(x) {
 
 districts <- dip %>%
   filter(TIPO_ACTA != 4) %>%
-  gather(PARTIDO, VOTOS, PAN:C_PRD_PT) %>%
+  gather(PARTIDO, VOTOS, PAN:CAND_IND_2) %>%
   group_by(ESTADO, DISTRITO, PARTIDO) %>%
   summarise(TOTAL_VOTOS = sum(as.numeric(TOTAL_VOTOS), na.rm = TRUE),
     VOTOS = sum(as.numeric(VOTOS), na.rm = TRUE)) %>%

@@ -1,11 +1,11 @@
 //final results of the 2015 election
-var barData = [.292, .109, .210, .084, .069, .061, .037, .033, 0, 0];
+var barData = [.292, .109, .210, .084, .069, .061, .037, .033, 0, 0, .006];
 var gap = 2;
 var maxper= .8;
 //padding for the party labels
 var left_padding = 60;
 var w = 300,
-    h = 220;
+    h = 240;
 
 var x = d3.scale.linear()
         .domain([0, maxper])
@@ -60,11 +60,12 @@ chart.selectAll("rect")
                                     if(i == 6) return "#37b4b7";
                                     if(i == 7) return "#643179";
                                     if(i == 8) return "#bd0026";
-                                    if(i == 9) return "#d5b60a";});
+                                    if(i == 9) return "#d5b60a";
+                                    if(i == 10) return "4d4d4d";});
 
 //labels for the parties
 chart.selectAll("text.name")
-    .data(["PRI", "PRD", "PAN", "MORENA", "PVEM", "MC", "PANAL", "PS", "PRI+PVEM", "PRD+PT"])
+    .data(["PRI", "PRD", "PAN", "MORENA", "PVEM", "MC", "PANAL", "PS", "PRI+PVEM", "PRD+PT", "INDEP"])
     .enter().append("text")
     .attr("x", 0)
     .attr("y", function(d, i){ return i * 20 + 10; } )

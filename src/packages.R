@@ -1,6 +1,7 @@
 library("ggplot2")
 library("dplyr")
 library("readr")
+library("rgeos")
 library("rgdal")
 library("scales")
 library("downloader")
