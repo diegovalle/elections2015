@@ -59,3 +59,7 @@ cartogramMap(districts,  "C_PRI_PVEM_T", high = "#ec242a",
 cartogramMap(districts,  "C_PRD_PT_T", high = "#fec44f", 
              title = "PRD and PT votes equal area cartogram, by district")%>%
   savePlot("PRDPT-cartograma")
+
+cartogramMap(districts,  "CAND_IND_1", high = "#4d4d4d", 
+             title = "Independent candidate votes equal area cartogram, by district")%>%
+  savePlot("INDEP1-cartograma")

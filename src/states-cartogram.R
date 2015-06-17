@@ -65,6 +65,14 @@ mapStates(map, estados, centers, "C_PRI_PVEM_T", high = "#ec242a",
 mapStates(map, estados, centers, "C_PRD_PT_T", high = "#fec44f", 
           title = "PRD + PT votes, by state")%>%
   savePlot("PRDPT-estados")
+
+mapStates(map, estados, centers, "CAND_IND_1", high = "gray30", 
+          title = "Independent candidate votes, by state")%>%
+  savePlot("INDEP1-estados")
+
+# mapStates(map, estados, centers, "CAND_IND_2", high = "gray30", 
+#           title = "Independent candidate 2 votes, by state")%>%
+#   savePlot("INDEP2-estados")
 #mapStates(map, NULO, high = "#ffffff", title = "Porcentaje de Voto NULO (PREP), por Estado")
 
 #Voto MORENA como porcentaje del voto PRD
